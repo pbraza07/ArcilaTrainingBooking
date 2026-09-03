@@ -53,6 +53,8 @@ Steps:
 5. Use the exact same `ARCILA_CRON_SECRET` value on the web and cron services.
 6. Deploy and open `/staff` to use the password configured in `ARCILA_STAFF_PASSWORD`.
 
+For the complete click-by-click instructions and required values, see [`RENDER_SETUP.md`](RENDER_SETUP.md).
+
 The persistent disk requires a paid Render web-service plan. Removing the disk may allow a lower-cost plan, but reservations can be erased whenever the service restarts or redeploys.
 
 ## Notifications
@@ -62,6 +64,8 @@ SMS requires a Twilio account, messaging-capable number, and production-approved
 ## Database and reports
 
 Render startup automatically applies the SQL migrations in `drizzle/`. The daily cron runs hourly because Render schedules in UTC; the script checks America/New_York and exits unless the local hour is 8:00 PM.
+
+The Render startup script also transfers the Render environment variables into the Cloudflare-compatible worker through a private temporary file. That file is created at runtime with owner-only permissions and is never committed to GitHub.
 
 ## Production security
 
