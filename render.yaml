@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: arcila-training-booking
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:render
+    healthCheckPath: /
+    disk:
+      name: arcila-booking-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: ARCILA_DATA_DIR
+        value: /var/data/wrangler
+      - key: ARCILA_ADMIN_EMAILS
+        value: pbraza@gmail.com
+      - key: ARCILA_REPORT_EMAIL
+        value: pbraza@gmail.com
+      - key: ARCILA_STAFF_PHONES
+        value: +18134585324,+18137509062
+      - key: ARCILA_STAFF_PASSWORD
+        sync: false
+      - key: ARCILA_CRON_SECRET
+        sync: false
+      - key: ARCILA_APP_URL
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_FROM_NUMBER
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: ARCILA_FROM_EMAIL
+        sync: false
+
+  - type: cron
+    name: arcila-daily-booking-report
+    runtime: node
+    schedule: "0 * * * *"
+    buildCommand: npm ci
+    startCommand: npm run report:daily
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: ARCILA_APP_URL
+        sync: false
+      - key: ARCILA_CRON_SECRET
+        sync: false
