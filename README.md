@@ -45,6 +45,7 @@ The included `render.yaml` creates:
 - An hourly cron check that sends the daily report only at 8:00 PM America/New_York
 
 The app is pinned to Node.js `22.13.0`. Its normal `npm run start` command uses Wrangler's local worker runtime so imports such as `cloudflare:workers` work correctly on Render.
+The Render Worker compatibility date is pinned to `2026-05-22`, the newest date supported by the locked Wrangler 4.92.0 runtime.
 
 Steps:
 

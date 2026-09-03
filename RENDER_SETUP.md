@@ -45,6 +45,16 @@ Open the existing Render service, select **Settings**, and use these exact value
 
 The repository pins Node.js to `22.13.0`. After saving the settings, select **Manual Deploy > Clear build cache & deploy** so Render stops reusing the Node 26 cache.
 
+### Compatibility-date startup error
+
+If Render reports that the Worker requires `2026-09-03` but its server binary supports only through `2026-05-22`, open `wrangler.render.toml` and confirm it contains:
+
+```toml
+compatibility_date = "2026-05-22"
+```
+
+The later esbuild `deadlock` message is a shutdown side effect of this compatibility-date rejection. It does not indicate a second application problem.
+
 ## 3. Required environment variables
 
 ### Web service
