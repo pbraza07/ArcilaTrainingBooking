@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-data_dir="${ARCILA_DATA_DIR:-/var/data/wrangler}"
+if [[ -n "${ARCILA_DATA_DIR:-}" ]]; then
+  data_dir="${ARCILA_DATA_DIR}"
+elif [[ -d "/var/data" && -w "/var/data" ]]; then
+  data_dir="/var/data/wrangler"
+else
+  data_dir=".wrangler/render-data"
+  echo "WARNING: No persistent Render disk detected; booking data may be lost on restart." >&2
+fi
 render_env_file="${ARCILA_RENDER_ENV_FILE:-/tmp/arcila-render.env}"
 wrangler="./node_modules/.bin/wrangler"
 mkdir -p "${data_dir}"

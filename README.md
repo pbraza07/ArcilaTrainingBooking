@@ -44,6 +44,8 @@ The included `render.yaml` creates:
 - A 1 GB persistent disk for the local D1/SQLite database
 - An hourly cron check that sends the daily report only at 8:00 PM America/New_York
 
+The app is pinned to Node.js `22.13.0`. Its normal `npm run start` command uses Wrangler's local worker runtime so imports such as `cloudflare:workers` work correctly on Render.
+
 Steps:
 
 1. Push the unzipped project to GitHub.

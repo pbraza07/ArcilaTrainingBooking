@@ -32,6 +32,19 @@ You need:
 5. Enter the environment-variable values described below.
 6. Select **Apply** or **Deploy Blueprint**.
 
+### If you already created a Web Service manually
+
+Open the existing Render service, select **Settings**, and use these exact values:
+
+| Setting | Value |
+| --- | --- |
+| Runtime | `Node` |
+| Build Command | `npm ci && npm run build` |
+| Start Command | `npm run start` |
+| Health Check Path | `/` |
+
+The repository pins Node.js to `22.13.0`. After saving the settings, select **Manual Deploy > Clear build cache & deploy** so Render stops reusing the Node 26 cache.
+
 ## 3. Required environment variables
 
 ### Web service
